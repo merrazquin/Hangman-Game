@@ -1,0 +1,12 @@
+body { max-width: 960px; margin: 20px auto;}
+
+#solution li {
+    font-family: 'Courier New', Courier, monospace;
+    display: inline-block;
+    padding: 5px 5px 2px 5px;
+    border-bottom: 1px solid black;
+    margin-right: 5px;
+}
+#solution li.space {
+    border-bottom: none;
+}
