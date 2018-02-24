@@ -16,15 +16,23 @@
     <!-- Show number of wins -->
 
     <!-- display the word to be guessed as spaces -->
-    <ul id="solution"></ul>
+    <ul id="solution" class="horizontalList"></ul>
 
     <!-- show number of guesses remaining -->
     <p>
         Guesses remaining: <span id="remainingGuesses"></span>
     </p>
 
+    <!-- show rounds won & lost -->
+    <p>
+        Games won: <span id="roundsWon">0</span>
+    </p>
+    <p>
+        Games lost: <span id="roundsLost">0</span>
+    </p>
+
     <!-- letters already guessed -->
-    <ul id="invalidGuesses"></ul>
+    <ul id="invalidGuesses" class="horizontalList"></ul>
 
     <script src="assets/javascript/game.js"></script>
 </body>
