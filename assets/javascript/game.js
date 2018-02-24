@@ -34,14 +34,24 @@ var game = {
     winCount: 0,
     lossCount: 0,
 
-    restart: function () {
+    startGame: function () {
+        this.hasBegun = true;
+
+        // randomize the answers
+        this.answers.sort(randomize);
+        
+        // reset the game
+        this.reset();
+    },
+    reset: function () {
         // reset guesses remaining
         remainingGuessesDisplay.textContent = (this.guessesRemaining = 10); 
 
-        // randomize answer, select one, and put it back at the end of the list
-        this.answers.sort(randomize);
+        // select an answer, and put it back at the end of the list
         this.currentAnswer = this.answers.shift();
         this.answers.push(this.currentAnswer);
+
+        clearSolution();
 
         var letters = this.currentAnswer.split("");
         letters.forEach(letter => {
@@ -49,19 +59,25 @@ var game = {
         });
     },
 
-    acceptGuess: function () {
-        
+    acceptGuess: function (input) {
+        console.log("accepted", input);
     }
 
 }
 
 /* Helper Functions */
+function clearSolution() {
+    while (solutionDisplay.firstChild) {
+        solutionDisplay.removeChild(solutionDisplay.firstChild);
+    }
+}
 function createNode(letter) {
     var isSpace = letter == " ";
     var node = document.createElement("li");
     var textElement = document.createTextNode(isSpace ? "-" : " ");
     if(!isSpace){
-        node.setAttribute("value", letter)
+        node.setAttribute("value", letter.toLowerCase());
+        node.setAttribute("displayValue", letter);
         node.setAttribute("solved", "false");
     }
     else{      
@@ -77,4 +93,20 @@ function createNode(letter) {
 function randomize(a, b) {
     var rand = Math.random();
     return rand < .3 ? -1 : (rand < .6 ? 0 : 1);
+}
+
+/* listeners */
+document.onkeyup = function(event) {
+    if(game.hasBegun) {
+        var cleanInput = event.key;
+        if(cleanInput.length > 1 || !/[A-Za-z]/.test(cleanInput)) {
+            console.log("Invalid input:", cleanInput);
+            return;
+        }
+
+        game.acceptGuess(cleanInput.toLowerCase());
+    }
+    else {
+        game.startGame();
+    }
 }
