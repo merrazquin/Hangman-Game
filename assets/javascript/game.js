@@ -29,6 +29,7 @@ var winsDisplay = document.getElementById("roundsWon");
 var lossesDisplay = document.getElementById("roundsLost");
 var feedback = document.getElementById("feedback");
 var keyboard = document.getElementById("keyboard");
+var hangmanImage = document.getElementById("hangmanImage");
 
 // Sounds
 var introSound = new Audio("assets/sounds/intro.mp3");
@@ -99,7 +100,7 @@ var game = {
 
 
         // update display of remaining guesses
-        remainingGuessesDisplay.textContent = this.maxTries - this.invalidGuesses.length;
+        this.updateRemainingGuesses();
 
         // select an answer, and put it back at the end of the list
         this.currentAnswer = this.answers.shift();
@@ -116,7 +117,7 @@ var game = {
         document.querySelectorAll("#keyboard button").forEach(letterButton => {
             letterButton.setAttribute("class", "btn btn-default")
         });
-        
+
 
         // loop over each letter in the answer
         var letters = this.currentAnswer.split("");
@@ -143,15 +144,15 @@ var game = {
         });
     },
 
-    buildKeyboard: function() {
+    buildKeyboard: function () {
         var rows = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
         rows.forEach(row => {
-            
+
             // create a button group div
             var buttonGroup = document.createElement("div");
             buttonGroup.setAttribute("class", "btn-group");
             buttonGroup.setAttribute("role", "group");
-        
+
             // for each letter in the row, create a button 
             row.split("").forEach(letter => {
                 var letterButton = document.createElement("button");
@@ -175,7 +176,7 @@ var game = {
             console.log(input, "already guessed");
             return;
         }
-       
+
         var keyboardKey = document.querySelector('button[value="' + input + '"]');
 
         // add current guess to all guesses
@@ -197,12 +198,12 @@ var game = {
             invalidGuessesBank.appendChild(node);
 
             // update display of remaining guesses
-            remainingGuessesDisplay.textContent = this.maxTries - this.invalidGuesses.length;
+            this.updateRemainingGuesses();
         }
         // otherwise, display the correct guess
         else {
             keyboardKey.className += " btn-success disabled";
-            
+
             correct.forEach(node => {
                 node.textContent = node.getAttribute("displayValue");
                 node.setAttribute("solved", "true");
@@ -215,6 +216,10 @@ var game = {
         } else if (this.invalidGuesses.length === this.maxTries) {
             this.endRound(false);
         }
+    },
+
+    updateRemainingGuesses: function(){
+        hangmanImage.src = "assets/images/hangman" + (remainingGuessesDisplay.textContent = this.maxTries - this.invalidGuesses.length) + ".png";
     },
 
     endRound: function (win) {
