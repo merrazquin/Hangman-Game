@@ -1,39 +1,87 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Hangman</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
+
 <body>
-    <h1>Hangman</h1>
 
-    <!-- Press any key to get started -->
-
-    <!-- Show number of wins -->
-
-    <!-- display the word to be guessed as spaces -->
-    <ul id="solution" class="horizontalList"></ul>
-
-    <!-- show number of guesses remaining -->
-    <p>
-        Guesses remaining: <span id="remainingGuesses"></span>
-    </p>
-
-    <!-- show rounds won & lost -->
-    <p>
-        Games won: <span id="roundsWon">0</span>
-    </p>
-    <p>
-        Games lost: <span id="roundsLost">0</span>
-    </p>
-
-    <!-- letters already guessed -->
-    <ul id="invalidGuesses" class="horizontalList"></ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="jumbotron text-center">
+                    <img src="assets/images/logo.png" alt="Seinfeld Hangman">
+                    <h2 id="feedback">Press any key to begin</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel text-center">
+                    <!-- TODO: image -->
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-heading">
+                        Current Word
+                    </div>
+                    <div class="panel-body text-center">
+                        <ul id="solution" class="horizontalList">
+                            <li solved="true">&nbsp;</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        Missed Letters:
+                    </div>
+                    <div class="panel-body">
+                        <ul id="invalidGuesses" class="horizontalList">
+                            <li>&nbsp;</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                Guesses Remaining:
+                            </div>
+                            <div class="col-xs-4">
+                                Rounds Won:
+                            </div>
+                            <div class="col-xs-4">
+                                Rounds Lost:
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <span id="remainingGuesses">--</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <div id="roundsWon">0</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div id="roundsLost">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="assets/javascript/game.js"></script>
 </body>
+
 </html>
