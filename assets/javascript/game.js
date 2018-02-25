@@ -72,7 +72,7 @@ function handleInput(event) {
 var game = {
     hasBegun: false,
     roundEnded: false,
-    answers: ["Jerry Seinfeld", "Elaine Benes", "Cosmo Kramer", "George Costanza", "black and white cookie", "chocolate babka", "muffin top", "serenity now", "frogger", "bottle wipe", "close talker", "double dipper", "Festivus", "hoochie mama", "manssiere", "Mulva", "David Puddy", "Jackie Chiles", "Tim Whatley"],
+    answers: ["Jerry Seinfeld", "Elaine Benes", "Cosmo Kramer", "George Costanza", "chocolate babka", "muffin top", "serenity now", "frogger", "bottle wipe", "close talker", "double dipper", "Festivus", "hoochie mama", "manssiere", "Mulva", "David Puddy", "Jackie Chiles", "Tim Whatley"],
     currentAnswer: "",
     allGuesses: [],
     invalidGuesses: [],
@@ -139,6 +139,7 @@ var game = {
             // treat spaces differently from letters
             if (isSpace) {
                 node.setAttribute("solved", "true");
+                node.setAttribute("value", "-");
             }
             else {
                 // TODO: change to char codes for better obfuscation of answer
@@ -146,7 +147,7 @@ var game = {
                 node.setAttribute("displayValue", letter);
                 node.setAttribute("solved", "false");
             }
-            node.innerHTML = isSpace ? "-" : "&nbsp;";
+            node.innerHTML = isSpace ? "" : "&nbsp;";
 
             // add the letter space to the collection (ul)
             solutionDisplay.appendChild(node);

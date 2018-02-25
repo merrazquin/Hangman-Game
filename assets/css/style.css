@@ -28,6 +28,10 @@ body, .jumbotron {
     background: #1eb2c9;
 }
 
+.no-background {
+    background-color: inherit;
+}
+
 .panel-heading {
     font-weight: bold;
     background: #fddd5b;
@@ -41,6 +45,11 @@ body, .jumbotron {
     font-size: 4vw;
 }
 
+.minimal {
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
 .horizontalList {
     padding-left: 0px;
 }
@@ -49,7 +58,12 @@ body, .jumbotron {
     padding: 5px 5px 2px 5px;
 }
 
+#solution {
+    padding-bottom: 10px;
+}
+
 #solution li {
+    margin-top: 0px;
     font-size: 2.5vw;
     border-bottom: 1px solid #fddd5b;
     margin-right: 5px;
@@ -82,30 +96,51 @@ body, .jumbotron {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
-}
-
-/* Extra Small Devices, Phones */ 
-@media only screen and (max-width : 544px) {
+    .jumbotron {
+        padding-top: 5px;
+    }
     .jumbotron img {
         width: auto;
         height: 40px;
-        position: absolute;
-        top: 0;
-        left: 0;
+        float: left;
     }
     .jumbotron h2 {
         font-size: 3vw;
-        margin: 5px 0;
+        float: right;
+        margin-top: calc(20px - 1.5vw);
+
+    }
+    .container > .row:nth-of-type(2) {
+        clear: both;
+        margin-top: 10px;
     }
     #hangmanImage {
-        height: 200px;
+        height: 400px;
         width: auto;
         margin: 0 auto;
     }
 
+    #solution li {
+        font-size: 4.5vw;
+    }
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 544px) {
+    #hangmanImage {
+        height: 200px;
+    }    
+    li[value="-"] {
+        display: block;
+        margin:0px;
+        padding: 0px;
+    }
 }
 
 /* Custom, iPhone Retina */ 
 @media only screen and (max-width : 320px) {
-
+    .btn-group>.btn {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 }
