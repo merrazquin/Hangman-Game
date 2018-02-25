@@ -50,7 +50,7 @@ var game = {
     startGame: function () {
         this.hasBegun = true;
 
-        // introSound.play();
+        introSound.play();
 
         // randomize the answers and sounds
         this.answers.sort(randomize);
@@ -140,7 +140,7 @@ var game = {
         // otherwise, display the correct guess
         else {
             correct.forEach(node => {
-                node.textContent = node.getAttribute("displayvalue");
+                node.textContent = node.getAttribute("displayValue");
                 node.setAttribute("solved", "true");
             });
         }
@@ -168,7 +168,11 @@ var game = {
         else {
             console.log("you lost");
 
-            // var unsolved = document.querySelectorAll();
+            // reveal answer
+            document.querySelectorAll('li[solved="false"]').forEach(node => {
+                node.setAttribute("class", "failed");
+                node.textContent = node.getAttribute("displayValue");
+            });
 
             // select losing sound
             sound = loseSounds.shift();

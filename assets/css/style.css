@@ -37,13 +37,14 @@ body, .jumbotron {
 
 .panel-body { 
     min-height: 67px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5vw;
 }
 
 .horizontalList {
     padding-left: 0px;
 }
 .horizontalList li {
-    font-family: 'Courier New', Courier, monospace;
     display: inline-block;
     padding: 5px 5px 2px 5px;
 }
@@ -57,6 +58,11 @@ body, .jumbotron {
 #solution li[solved='true'] {
     border-bottom: none;
     color: #204d9e;
+}
+
+#solution li.failed {
+    color: #e62a39;
+    border-bottom: none;
 }
 
 #invalidGuesses li {
