@@ -47,8 +47,8 @@ function handleInput(event) {
     if (!game.hasBegun) {
         game.startGame();
     }
-    // if the game has begun, but the round has ended, reset
-    else if (game.roundEnded) {
+    // if, but the round has ended, reset
+    if (game.roundEnded) {
         game.newRound();
     }
     // otherwise, send the cleaned input to the game
@@ -75,20 +75,24 @@ var game = {
     winCount: 0,
     lossCount: 0,
 
-    startGame: function () {
-        this.hasBegun = true;
-
-        introSound.play();
+    setup: function() {
+        this.buildKeyboard();
 
         // randomize the answers and sounds
         this.answers.sort(randomize);
         winSounds.sort(randomize);
         loseSounds.sort(randomize);
 
-        feedback.innerHTML = "&nbsp;";
-
         // reset the game
         this.newRound();
+    },
+
+    startGame: function () {
+        this.hasBegun = true;
+
+        introSound.play();
+
+        feedback.innerHTML = "&nbsp;";
     },
     newRound: function () {
         // reset round status
@@ -263,7 +267,7 @@ var game = {
 }
 
 /* calls */
-game.buildKeyboard();
+game.setup();
 
 /* listeners */
 document.onkeyup = handleInput;
