@@ -38,7 +38,7 @@ body, .jumbotron {
 .panel-body { 
     min-height: 67px;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1.5vw;
+    font-size: 4vw;
 }
 
 .horizontalList {
@@ -73,4 +73,9 @@ body, .jumbotron {
 }
 #invalidGuesses li:last-of-type::after { 
     content: "";
+}
+
+.btn-group>.btn {
+    padding-left: 8px;
+    padding-right: 8px;
 }
