@@ -19,7 +19,12 @@
             increment win counter if applicable
             restart game with new puzzle
 
+
+TODO: support native keyboard for tablets
+
 */
+
+
 
 // DOM elements
 var solutionDisplay = document.getElementById("solution");
@@ -92,7 +97,7 @@ var game = {
 
         introSound.play();
 
-        feedback.innerHTML = "&nbsp;";
+        feedback.innerHTML = "";
     },
     newRound: function () {
         // reset round status

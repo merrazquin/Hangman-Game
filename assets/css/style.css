@@ -79,3 +79,33 @@ body, .jumbotron {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 544px) {
+    .jumbotron img {
+        width: auto;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .jumbotron h2 {
+        font-size: 3vw;
+        margin: 5px 0;
+    }
+    #hangmanImage {
+        height: 200px;
+        width: auto;
+        margin: 0 auto;
+    }
+
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+
+}
