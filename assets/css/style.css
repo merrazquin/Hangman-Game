@@ -60,7 +60,7 @@ body, .jumbotron {
     color: #204d9e;
 }
 
-#solution li.failed {
+#solution li[failed='true'] {
     color: #e62a39;
     border-bottom: none;
 }

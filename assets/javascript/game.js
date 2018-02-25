@@ -28,13 +28,40 @@ var remainingGuessesDisplay = document.getElementById("remainingGuesses");
 var winsDisplay = document.getElementById("roundsWon");
 var lossesDisplay = document.getElementById("roundsLost");
 var feedback = document.getElementById("feedback");
+var keyboard = document.getElementById("keyboard");
 
 // Sounds
 var introSound = new Audio("assets/sounds/intro.mp3");
-
 var loseSounds = [new Audio("assets/sounds/roundLoss.mp3"), new Audio("assets/sounds/roundLoss2.wav"), new Audio("assets/sounds/roundLoss3.mp3")];
 var winSounds = [new Audio("assets/sounds/roundWin.mp3"), new Audio("assets/sounds/roundWin2.wav"), new Audio("assets/sounds/roundWin3.wav")];
 
+/* helper functions */
+function randomize(a, b) {
+    var rand = Math.random();
+    return rand < .3 ? -1 : (rand < .6 ? 0 : 1);
+}
+
+function handleInput(event) {
+    // if the game hasn't begun, start it
+    if (!game.hasBegun) {
+        game.startGame();
+    }
+    // if the game has begun, but the round has ended, reset
+    else if (game.roundEnded) {
+        game.newRound();
+    }
+    // otherwise, send the cleaned input to the game
+    else {
+        // if this is a keypress, event will have a key, otherwise, we're dealing with a button press
+        var cleanInput = event.key ? event.key : event.target.getAttribute("value");
+        if (cleanInput.length > 1 || !/[A-Za-z]/.test(cleanInput)) {
+            console.log("Invalid input:", cleanInput);
+            return;
+        }
+
+        game.acceptGuess(cleanInput.toLowerCase());
+    }
+}
 
 var game = {
     hasBegun: false,
@@ -70,6 +97,7 @@ var game = {
         this.allGuesses = [];
         this.invalidGuesses = [];
 
+
         // update display of remaining guesses
         remainingGuessesDisplay.textContent = this.maxTries - this.invalidGuesses.length;
 
@@ -77,13 +105,18 @@ var game = {
         this.currentAnswer = this.answers.shift();
         this.answers.push(this.currentAnswer);
 
-        // clear the solutions and the guess bank
+        // clear the solutions and the guess bank, and reset keyboard
         while (solutionDisplay.firstChild) {
             solutionDisplay.removeChild(solutionDisplay.firstChild);
         }
         while (invalidGuessesBank.firstChild) {
             invalidGuessesBank.removeChild(invalidGuessesBank.firstChild);
         }
+
+        document.querySelectorAll("#keyboard button").forEach(letterButton => {
+            letterButton.setAttribute("class", "btn btn-default")
+        });
+        
 
         // loop over each letter in the answer
         var letters = this.currentAnswer.split("");
@@ -98,6 +131,7 @@ var game = {
                 node.setAttribute("solved", "true");
             }
             else {
+                // TODO: change to char codes for better obfuscation of answer
                 node.setAttribute("value", letter.toLowerCase());
                 node.setAttribute("displayValue", letter);
                 node.setAttribute("solved", "false");
@@ -109,6 +143,30 @@ var game = {
         });
     },
 
+    buildKeyboard: function() {
+        var rows = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
+        rows.forEach(row => {
+            
+            // create a button group div
+            var buttonGroup = document.createElement("div");
+            buttonGroup.setAttribute("class", "btn-group");
+            buttonGroup.setAttribute("role", "group");
+        
+            // for each letter in the row, create a button 
+            row.split("").forEach(letter => {
+                var letterButton = document.createElement("button");
+                letterButton.setAttribute("type", "button");
+                letterButton.setAttribute("class", "btn btn-default")
+                letterButton.setAttribute("value", letter);
+                letterButton.textContent = letter;
+                letterButton.onclick = handleInput;
+                buttonGroup.appendChild(letterButton);
+            });
+            keyboard.appendChild(buttonGroup);
+            keyboard.appendChild(document.createElement("br"));
+        });
+    },
+
     acceptGuess: function (input) {
         console.log("accepted", input);
 
@@ -117,6 +175,8 @@ var game = {
             console.log(input, "already guessed");
             return;
         }
+       
+        var keyboardKey = document.querySelector('button[value="' + input + '"]');
 
         // add current guess to all guesses
         this.allGuesses.push(input);
@@ -127,6 +187,8 @@ var game = {
         // if there are no matching nodes, log an invalid guess
         if (!correct.length) {
             this.invalidGuesses.push(input);
+
+            keyboardKey.className += " btn-danger disabled";
 
             // add invalid guess to the bank
             var node = document.createElement("li");
@@ -139,6 +201,8 @@ var game = {
         }
         // otherwise, display the correct guess
         else {
+            keyboardKey.className += " btn-success disabled";
+            
             correct.forEach(node => {
                 node.textContent = node.getAttribute("displayValue");
                 node.setAttribute("solved", "true");
@@ -170,7 +234,7 @@ var game = {
 
             // reveal answer
             document.querySelectorAll('li[solved="false"]').forEach(node => {
-                node.setAttribute("class", "failed");
+                node.setAttribute("failed", "true");
                 node.textContent = node.getAttribute("displayValue");
             });
 
@@ -193,31 +257,8 @@ var game = {
     }
 }
 
-/* helper functions */
-
-function randomize(a, b) {
-    var rand = Math.random();
-    return rand < .3 ? -1 : (rand < .6 ? 0 : 1);
-}
+/* calls */
+game.buildKeyboard();
 
 /* listeners */
-document.onkeyup = function (event) {
-    // if the game hasn't begun, start it
-    if (!game.hasBegun) {
-        game.startGame();
-    }
-    // if the game has begun, but the round has ended, reset
-    else if (game.roundEnded) {
-        game.newRound();
-    }
-    // otherwise, send the cleaned input to the game
-    else {
-        var cleanInput = event.key;
-        if (cleanInput.length > 1 || !/[A-Za-z]/.test(cleanInput)) {
-            console.log("Invalid input:", cleanInput);
-            return;
-        }
-
-        game.acceptGuess(cleanInput.toLowerCase());
-    }
-}
+document.onkeyup = handleInput;
