@@ -4,8 +4,12 @@
     teal: #1eb2c9
     red #e62a39;
 */
-* { box-sizing: border-box;} 
-body { 
+
+* {
+    box-sizing: border-box;
+}
+
+body {
     color: #fddd5b;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
@@ -39,20 +43,21 @@ body, .jumbotron {
     font-size: calc(1vw + 1vh);
 }
 
-.panel-body { 
+.panel-body {
     min-height: 67px;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 4vw;
+    font-size: 24px;
 }
 
 .minimal {
-    padding-top:5px;
-    padding-bottom:5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .horizontalList {
     padding-left: 0px;
 }
+
 .horizontalList li {
     display: inline-block;
     padding: 5px 5px 2px 5px;
@@ -82,10 +87,12 @@ body, .jumbotron {
 #invalidGuesses li {
     font-size: 1.5vw;
 }
+
 #invalidGuesses li::after {
     content: ",";
 }
-#invalidGuesses li:last-of-type::after { 
+
+#invalidGuesses li:last-of-type::after {
     content: "";
 }
 
@@ -95,7 +102,8 @@ body, .jumbotron {
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width : 768px) {
+
+@media only screen and (max-width: 768px) {
     .jumbotron {
         padding-top: 5px;
     }
@@ -108,9 +116,8 @@ body, .jumbotron {
         font-size: 3vw;
         float: right;
         margin-top: calc(20px - 1.5vw);
-
     }
-    .container > .row:nth-of-type(2) {
+    .container>.row:nth-of-type(2) {
         clear: both;
         margin-top: 10px;
     }
@@ -119,26 +126,31 @@ body, .jumbotron {
         width: auto;
         margin: 0 auto;
     }
-
     #solution li {
         font-size: 4.5vw;
     }
 }
 
-/* Extra Small Devices, Phones */ 
-@media only screen and (max-width : 544px) {
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 544px) {
     #hangmanImage {
         height: 200px;
-    }    
+    }
     li[value="-"] {
         display: block;
-        margin:0px;
+        margin: 0px;
         padding: 0px;
+    }
+    
+    .panel-body {
+        font-size: 4vw;
     }
 }
 
-/* Custom, iPhone Retina */ 
-@media only screen and (max-width : 320px) {
+/* Custom, iPhone Retina */
+
+@media only screen and (max-width: 320px) {
     .btn-group>.btn {
         padding-left: 8px;
         padding-right: 8px;
