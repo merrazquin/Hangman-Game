@@ -278,6 +278,7 @@ game.setup();
 /* listeners */
 document.onkeyup = handleInput;
 if(window.outerWidth == 1024 || window.outerWidth == 1366) {
+    alert("mobile keyboard");
     /* show native keyboard for ipad only */
     document.onclick = function(){		
         document.getElementById("mobile-keyboard-fix").focus();	
