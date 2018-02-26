@@ -277,3 +277,9 @@ game.setup();
 
 /* listeners */
 document.onkeyup = handleInput;
+
+/* show native keyboard for ipad only */
+document.onclick = function(){		
+    document.getElementById("mobile-keyboard-fix").focus();	
+};
+document.getElementById("mobile-keyboard-fix").focus();

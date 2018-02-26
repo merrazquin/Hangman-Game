@@ -131,6 +131,12 @@ body, .jumbotron {
     }
 }
 
+#mobile-keyboard-fix {
+    position: absolute;
+    left: -200px;
+    top: 0px;
+}
+
 /* Extra Small Devices, Phones */
 
 @media only screen and (max-width: 544px) {
@@ -142,7 +148,6 @@ body, .jumbotron {
         margin: 0px;
         padding: 0px;
     }
-    
     .panel-body {
         font-size: 4vw;
     }
