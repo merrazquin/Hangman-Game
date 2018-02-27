@@ -97,9 +97,12 @@ var game = {
 
         introSound.play();
 
-        feedback.innerHTML = "";
+        feedback.innerHTML = "&nbsp;";
     },
     newRound: function () {
+        if(this.hasBegun) {
+            feedback.innerHTML = "&nbsp;";
+        }
         // reset round status
         this.roundEnded = false;
 
