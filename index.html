@@ -25,13 +25,24 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="panel text-center no-background">
-                   <img id="hangmanImage" class="img-responsive" src="assets/images/hangman10.png" alt="10 guesses remaining" />
+                    <img id="hangmanImage" class="img-responsive" src="assets/images/hangman10.png" alt="10 guesses remaining" />
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="panel">
                     <div class="panel-heading">
-                        Current Word
+                        <div class="row">
+                            <div class="col-xs-6">Current Word</div>
+                            <div class="col-xs-3 col-md-4 text-right">
+                                Sound:
+                            </div>
+                            <div class="col-xs-3 col-md-2 text-left">
+                                <label class="switch">
+                                    <input id="soundToggle" type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body text-center minimal">
                         <ul id="solution" class="scaled horizontalList">

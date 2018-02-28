@@ -5,7 +5,7 @@
     
     Randomize the list of puzzles
 
-    Select the fist puzzle to be solved.
+    Select the first puzzle to be solved.
 
     Listen for keyboard input
         if the user gueses a letter correctly, display that letter wherever it exists in the puzzle
@@ -35,6 +35,7 @@ var lossesDisplay = document.getElementById("roundsLost");
 var feedback = document.getElementById("feedback");
 var keyboard = document.getElementById("keyboard");
 var hangmanImage = document.getElementById("hangmanImage");
+var soundToggle = document.getElementById("soundToggle");
 
 // Sounds
 var introSound = new Audio("assets/sounds/intro.mp3");
@@ -80,7 +81,7 @@ var game = {
     winCount: 0,
     lossCount: 0,
 
-    setup: function() {
+    setup: function () {
         this.buildKeyboard();
 
         // randomize the answers and sounds
@@ -95,12 +96,12 @@ var game = {
     startGame: function () {
         this.hasBegun = true;
 
-        introSound.play();
+        this.playSound(introSound);
 
         feedback.innerHTML = "&nbsp;";
     },
     newRound: function () {
-        if(this.hasBegun) {
+        if (this.hasBegun) {
             feedback.innerHTML = "&nbsp;";
         }
         // reset round status
@@ -231,7 +232,7 @@ var game = {
         }
     },
 
-    updateRemainingGuesses: function(){
+    updateRemainingGuesses: function () {
         hangmanImage.src = "assets/images/hangman" + (remainingGuessesDisplay.textContent = this.maxTries - this.invalidGuesses.length) + ".png";
     },
 
@@ -265,13 +266,19 @@ var game = {
 
         feedback.textContent = (win ? "You won! " : "You lost! ") + "Press any key to play again.";
 
-        sound.play();
+        this.playSound(sound);
 
         // update the scoreboard
         winsDisplay.textContent = this.winCount;
         lossesDisplay.textContent = this.lossCount;
 
         this.roundEnded = true;
+    },
+
+    playSound: function (sound) {
+        if (soundToggle.checked) {
+            sound.play();
+        }
     }
 }
 
@@ -280,10 +287,10 @@ game.setup();
 
 /* listeners */
 document.onkeyup = handleInput;
-if(window.outerWidth == 1024 || window.outerWidth == 1366) {
+if (window.outerWidth == 1024 || window.outerWidth == 1366) {
     /* show native keyboard for ipad only */
-    document.onclick = function(){		
-        document.getElementById("mobile-keyboard-fix").focus();	
+    document.onclick = function () {
+        document.getElementById("mobile-keyboard-fix").focus();
     };
     document.getElementById("mobile-keyboard-fix").focus();
 }
