@@ -17,10 +17,10 @@ A _Seinfeld_-themed hangman game.
 <img src="readme-images/readme01.png" style="width:200px; height: auto;">
 
 ### Desktop - Game lose
-<img src="readme-images/readme02.png" style="width:200px; height: auto;">
+<img src="readme-images/readme02.jpg" style="width:200px; height: auto;">
 
 ### Desktop - Game win
-<img src="readme-images/readme03.png" style="width:200px; height: auto;">
+<img src="readme-images/readme03.jpg" style="width:200px; height: auto;">
 
 ### Mobile
 <img src="readme-images/readme04.png" style="width:200px; height: auto;">
