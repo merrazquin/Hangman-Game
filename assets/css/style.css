@@ -74,12 +74,12 @@ body, .jumbotron {
     margin-right: 5px;
 }
 
-#solution li[solved='true'] {
+#solution li[data-solved='true'] {
     border-bottom: none;
     color: #204d9e;
 }
 
-#solution li[failed='true'] {
+#solution li[data-failed='true'] {
     color: #e62a39;
     border-bottom: none;
 }
@@ -99,6 +99,10 @@ body, .jumbotron {
 .btn-group>.btn {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+li[data-value="-"] span.break {
+    display: none;
 }
 
 /* Small Devices, Tablets */
@@ -143,10 +147,16 @@ body, .jumbotron {
     #hangmanImage {
         height: 200px;
     }
-    li[value="-"] {
+    li[data-value="-"] {
         display: block;
         margin: 0px;
         padding: 0px;
+    }
+    li[data-value="-"] span.space {
+        display: none;
+    }
+    li[data-value="-"] span.break {
+        display: block;
     }
     .panel-body {
         font-size: 4vw;

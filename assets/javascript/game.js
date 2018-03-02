@@ -60,7 +60,7 @@ function handleInput(event) {
     // otherwise, send the cleaned input to the game
     else {
         // if this is a keypress, event will have a key, otherwise, we're dealing with a button press
-        var cleanInput = event.key ? event.key : event.target.getAttribute("value");
+        var cleanInput = event.key ? event.key : event.target.getAttribute("data-value");
         if (cleanInput.length > 1 || !/[A-Za-z]/.test(cleanInput)) {
             console.log("Invalid input:", cleanInput);
             return;
@@ -142,16 +142,16 @@ var game = {
 
             // treat spaces differently from letters
             if (isSpace) {
-                node.setAttribute("solved", "true");
-                node.setAttribute("value", "-");
+                node.setAttribute("data-solved", "true");
+                node.setAttribute("data-value", "-");
             }
             else {
                 // TODO: change to char codes for better obfuscation of answer
-                node.setAttribute("value", letter.toLowerCase());
-                node.setAttribute("displayValue", letter);
-                node.setAttribute("solved", "false");
+                node.setAttribute("data-value", letter.toLowerCase());
+                node.setAttribute("data-displayValue", letter);
+                node.setAttribute("data-solved", "false");
             }
-            node.innerHTML = isSpace ? "" : "&nbsp;";
+            node.innerHTML = isSpace ? '<span class="space">-</span><span class="break"></span>' : "&nbsp;";
 
             // add the letter space to the collection (ul)
             solutionDisplay.appendChild(node);
@@ -172,7 +172,7 @@ var game = {
                 var letterButton = document.createElement("button");
                 letterButton.setAttribute("type", "button");
                 letterButton.setAttribute("class", "btn btn-default")
-                letterButton.setAttribute("value", letter);
+                letterButton.setAttribute("data-value", letter);
                 letterButton.textContent = letter;
                 letterButton.onclick = handleInput;
                 buttonGroup.appendChild(letterButton);
@@ -191,13 +191,13 @@ var game = {
             return;
         }
 
-        var keyboardKey = document.querySelector('button[value="' + input + '"]');
+        var keyboardKey = document.querySelector('button[data-value="' + input + '"]');
 
         // add current guess to all guesses
         this.allGuesses.push(input);
 
         // collect nodes that match the input
-        var correct = document.querySelectorAll('li[value="' + input + '"]');
+        var correct = document.querySelectorAll('li[data-value="' + input + '"]');
 
         // if there are no matching nodes, log an invalid guess
         if (!correct.length) {
@@ -209,6 +209,8 @@ var game = {
             var node = document.createElement("li");
             node.textContent = input;
 
+            //TODO: sort invalid guesses alphabetically?
+
             invalidGuessesBank.appendChild(node);
 
             // update display of remaining guesses
@@ -219,13 +221,13 @@ var game = {
             keyboardKey.className += " btn-success disabled";
 
             correct.forEach(node => {
-                node.textContent = node.getAttribute("displayValue");
-                node.setAttribute("solved", "true");
+                node.textContent = node.getAttribute("data-displayValue");
+                node.setAttribute("data-solved", "true");
             });
         }
 
         // check to see if round has either been won or lost
-        if (document.querySelectorAll('li[solved="true"]').length === this.currentAnswer.length) {
+        if (document.querySelectorAll('li[data-solved="true"]').length === this.currentAnswer.length) {
             this.endRound(true);
         } else if (this.invalidGuesses.length === this.maxTries) {
             this.endRound(false);
@@ -252,9 +254,9 @@ var game = {
             console.log("you lost");
 
             // reveal answer
-            document.querySelectorAll('li[solved="false"]').forEach(node => {
-                node.setAttribute("failed", "true");
-                node.textContent = node.getAttribute("displayValue");
+            document.querySelectorAll('li[data-solved="false"]').forEach(node => {
+                node.setAttribute("data-failed", "true");
+                node.textContent = node.getAttribute("data-displayValue");
             });
 
             // select losing sound
